@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="ui-g">
+
+    <form #f="ngForm" autocomplete="off" (ngSubmit)="schedule()">
+
+      <div class="ui-g-12">
+        <h1>Conference Track Management</h1>
+        <label>Select Input File</label>
+        <p-fileUpload accept="text/plain" name="myfile" (onUpload)="onUpload($event)" [url]="uploadUrl"
+        ></p-fileUpload>
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton label="Schedule" type="submit" [disabled]="!upload"></button>
+        <button pButton type="button" label="Clear" [disabled]="!upload" class="ui-button-info" (click)="clear(f)"></button>
+      </div>
+    </form>
+
+  </div>
+
+  <div>
+      <div class="ui-g-12" *ngFor = "let conferencia of conferencias">
+        <p-dataTable [value]="conferencia.palestrasList" [responsive]="true">
+            <p-header>Track {{conferencia.dia}}:</p-header>
+          <p-column header="Schedule">
+              <ng-template let-palestra="rowData" pTemplate="body">
+                  {{palestra.horario}}
+                </ng-template>
+              </p-column>
+        <p-column header="Name">
+              <ng-template let-palestra="rowData" pTemplate="body">
+                  {{palestra.nome}}
+                </ng-template>
+              </p-column>
+              <p-column header="Time">
+                  <ng-template let-palestra="rowData" pTemplate="body">
+                      {{palestra.duracao}}min
+                    </ng-template>
+                  </p-column>
+      </p-dataTable>
+      <div class="ui-g-12"></div>
+  </div>
+
+</div>
